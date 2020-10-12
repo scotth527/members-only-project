@@ -10,8 +10,23 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+        <%= link_to "Members-Only", root_path , {class:"navbar-brand"} %>
+
+        <div>
+            <% if user_signed_in? %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete,
+                class:"btn btn-outline-danger my-2 my-sm-0" %>
+            <% else %>
+                <%= link_to 'Sign In', new_user_session_path, class: "btn btn-outline-info my-2 my-sm-0" %>
+                <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-outline-success my-2 my-sm-0" %>
+            <% end %>
+        </div>
+    </nav>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
     <%= yield %>
   </body>
 </html>
