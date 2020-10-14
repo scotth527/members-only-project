@@ -1,5 +1,7 @@
 
-
+<% if user_signed_in? %>
+     <%= render 'form' %>
+<% end %>
 
 <% @posts.each do |post| %>
   <div class="col-6 mx-auto border border-dark rounded mt-3 p-3">
@@ -37,5 +39,3 @@
 
   </div>
 <% end %>
-
-<%= link_to 'New Post', new_post_path %>
