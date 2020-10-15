@@ -27,15 +27,21 @@
 
       <br/>
 
-      <h5>Comments</h5>
+      <h5><ul class="p-0">Comments</ul></h5>
       <% if post.comments.length() > 0 %>
           <% post.comments.each do |comment| %>
-             <div>
+             <div class="ml-3 mb-3">
                 <p><%= comment.body %></p>
-                <div>Written By: <%= comment.username %>
+                <% if user_signed_in? %>
+                    <div>Commented By: <%= comment.user.username %></div>
+                <% else %>
+                    <div>Commented By: anonymous</div>
+                <% end %>
              </div>
           <% end %>
       <% end %>
+
+      <%= link_to 'Comment', post, class:"btn btn-primary" %>
 
   </div>
 <% end %>

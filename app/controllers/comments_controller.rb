@@ -1,21 +1,12 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only:[:new, :create]
-  # GET /posts
-  # GET /posts.json
-  def index
-    @comments = Post.all.order("created_at DESC")
-    @comment = Comment.new
-  end
+  before_action :set_comment, only: [ :edit, :update, :destroy]
+  before_action :authenticate_user!, only:[:new, :create, :update, :delete]
 
-  # GET /posts/1
-  # GET /posts/1.json
-  def show
-  end
-
-  # GET /posts/new
+  # GET /comments/new
   def new
-    @comment = current_user.comments.post.build
+    @comment = current_user.comments.build
+    p "HEY HERE IS MY COMMENT"
+    p @comment
   end
 
   # GET /posts/1/edit
@@ -25,15 +16,15 @@ class CommentsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = current_user.posts.build(comment_params)
+    @comment = current_user.posts.build(comment_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to root_path, notice: 'Post was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
