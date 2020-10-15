@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_233248) do
+ActiveRecord::Schema.define(version: 2020_10_15_002301) do
 
 # Could not dump table "comments" because of following StandardError
-#   Unknown type 'reference' for column 'user_id'
+#   Unknown type '' for column 'user_id'
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
