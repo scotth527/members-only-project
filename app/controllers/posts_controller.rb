@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only:[:new, :create, :update, :delete]
+
   # GET /posts
   # GET /posts.json
   def index
@@ -11,10 +12,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-     @comment = current_user.comments.build
-     @comment.post_id = params[:post_id]
-     p "THE COMMENT FOR SHOW POST"
-     p @comment
+     @post = Post.find(params[:id])
   end
 
   # GET /posts/new
@@ -30,13 +28,14 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.build(post_params)
+    @posts = Post.all
 
     respond_to do |format|
       if @post.save
         format.html { redirect_to root_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new }
+        format.html { render :index }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end

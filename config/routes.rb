@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :posts
-  resources :comments, except:[ :index, :show ]
+  resources :posts do
+    resources :comments, except:[ :index, :show ]
+  end
   devise_for :users, :controllers => { registrations: 'registrations' }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "posts#index"

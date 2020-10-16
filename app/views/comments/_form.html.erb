@@ -1,21 +1,26 @@
 
+    <%= form_with(model: [ @post, @post.comments.new  ], local: true) do |form| %>
 
-    <%= form_with(model: @comment, local: true) do |form| %>
-      <% if @comment.errors.any? %>
+    <% p "RERENDERING AFTER ERROR"%>
+    <% p @post %>
+    <% p @post.comments %>
+
+      <% if @comment && @comment.errors && @comment.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(comment.errors.count, "error") %> prohibited this post from being saved:</h2>
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
           <ul>
-            <% comment.errors.full_messages.each do |message| %>
+            <% @comment.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
           </ul>
         </div>
       <% end %>
 
+
       <div class="field">
         <%= form.text_area :body, class:"form-control"%>
       </div>
       <div class="actions col-12 d-flex justify-content-end p-0">
-        <%= form.submit class:"btn btn-primary mt-3 " %>
+        <%= form.submit "Post Comment" , class:"btn btn-primary mt-3" %>
       </div>
     <% end %>

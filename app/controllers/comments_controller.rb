@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def new
     @comment = current_user.comments.build
     p "HEY HERE IS MY COMMENT"
-    p @comment
+    p params
   end
 
   # GET /posts/1/edit
@@ -16,17 +16,16 @@ class CommentsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @comment = current_user.posts.build(comment_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to root_path, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.new(comment_params)
+    @comment.user_id = current_user.id
+    if @comment.save
+        redirect_to root_path
+    else
+        render 'posts/show'
     end
+
+      ##@post = Post.find(params[:id])
   end
 
   # PATCH/PUT /posts/1
