@@ -22,6 +22,7 @@ class CommentsController < ApplicationController
     if @comment.save
         redirect_to root_path
     else
+        flash[:alert] = @comment.errors.full_messages[0]
         render 'posts/show'
     end
 

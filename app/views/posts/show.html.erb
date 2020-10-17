@@ -22,6 +22,7 @@
 
     <% if @post.comments.length() > 0 %>
         <% @post.comments.each do |comment| %>
+            <% if comment.body.length() > 0 %>
             <div class="ml-3 mb-3">
                <p><%= comment.body %></p>
                <% if user_signed_in? %>
@@ -30,6 +31,7 @@
                    <div>Commented By: anonymous</div>
                <% end %>
             </div>
+            <% end %>
         <% end %>
     <% end %>
 
